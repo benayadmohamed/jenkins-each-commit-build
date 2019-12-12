@@ -8,6 +8,6 @@ public class ApiRest {
 
     @GetMapping
     public String hello() {
-        return "sala   m";
+        return "sala      m";
     }
 }
