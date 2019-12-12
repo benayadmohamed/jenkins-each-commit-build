@@ -1,22 +1,31 @@
 pipeline {
-    agent any
-    tools {
-        maven 'Maven 3.3.9'
-        jdk 'jdk8'
-    }
-    stages {
-        stage ('Initialize') {
-            steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                '''
-            }
-        }
+   agent any
 
-        stage ('Build') {
+   stages {
+          stage ('Compile Stage') {
+
             steps {
-                sh 'mvn install'
+                    bat 'mvnw clean compile'
             }
         }
-    }
+        stage('test') {
+         steps {
+
+            bat "mvnw test"
+         }
+        }
+      stage('Build') {
+         steps {
+            bat "mvnw compile jib:dockerBuild"
+         }
+
+         post {
+            // If Maven was able to run the tests, even if some of the test
+            // failed, record the test results and archive the jar file.
+            success {
+               junit '**/target/surefire-reports/TEST-*.xml'
+            }
+         }
+      }
+   }
 }
