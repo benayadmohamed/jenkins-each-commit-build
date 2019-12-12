@@ -12,7 +12,7 @@ class JenkinsEachCommitBuildApplicationTests {
     @Test
     void contextLoads() {
 
-        assertEquals("salam ", "salam ");
+        assertEquals("salam", "salam");
     }
 
 }
