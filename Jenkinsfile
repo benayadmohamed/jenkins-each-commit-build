@@ -1,29 +1,21 @@
 pipeline {
     agent any
-
+    tools {
+        maven 'Maven 3.3.9'
+        jdk 'jdk8'
+    }
     stages {
-        stage ('Compile Stage') {
+        stage ('Initialize') {
             steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn clean compile'
-                }
+                sh '''
+                    echo "PATH = ${PATH}"
+                '''
             }
         }
 
-        stage ('Testing Stage') {
+        stage ('Build') {
             steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn test'
-                }
-            }
-        }
-
-
-        stage ('Deployment Stage') {
-            steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn deploy'
-                }
+                sh 'mvn install'
             }
         }
     }
