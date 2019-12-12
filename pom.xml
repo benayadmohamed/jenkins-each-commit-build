@@ -43,6 +43,27 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <!--mvnw.cmd package cette commande fait la emem chose car nous la vont lie avec mvnw.cmd compile jib:dockerBuild-->
+                <!--mvnw.cmd compile jib:dockerBuild // permer de poushe l'image dans docker -->
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>1.8.0</version>
+                <configuration>
+                    <to>
+                        <image>myimage2</image>
+                    </to>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>dockerBuild</goal>
+                            <!--<goal>build</goal>-->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
